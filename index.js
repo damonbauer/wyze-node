@@ -1,9 +1,6 @@
 'use strict'
 const axios = require('axios')
 const md5 = require('md5')
-const moment = require('moment')
-const LocalStorage = require('node-localstorage').LocalStorage
-const localStorage = new LocalStorage('./scratch')
 
 class Wyze {
   /**
@@ -32,7 +29,7 @@ class Wyze {
       app_ver: this.appVer,
       sc: this.sc,
       sv: this.sv,
-      ts: moment().unix(),
+      ts: ~~(Date.now() / 1000),
       ...data,
     }
   }
