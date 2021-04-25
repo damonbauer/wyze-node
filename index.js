@@ -66,7 +66,12 @@ class Wyze {
       }
 
       result = await axios.post(`${this.baseUrl}/app/user/login`, await this.getRequestBodyData(data))
-      this.setTokens(result.data.data['access_token'], result.data.data['refresh_token'])
+
+      if (result.data.data && 'access_token' in result.data.data) {
+        this.setTokens(result.data.data['access_token'], result.data.data['refresh_token'])
+      } else {
+        window.localStorage.setItem("INVALID_CREDENTIALS", "true")
+      }
     }
     catch (e) {
       throw e
